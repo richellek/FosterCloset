@@ -1,42 +1,33 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle} from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Card, CardImg, CardBody, CardTitle } from 'reactstrap';
+import '../styles.css';
 
-function RenderCard({item}) {
-
-    return(
-        <Card>
-            <CardImg src={item.image} alt={item.name} />
-            <CardBody>
-                <CardTitle>{item.name}</CardTitle>
-                <CardText>{item.description}</CardText>
-            </CardBody>
+function RenderCard({ homecard }) {
+    return (
+        <Card className='card'>
+            <Link to={homecard.link}>
+                <CardImg className='card-img' width='100%' src={homecard.image} alt={homecard.name} />
+                <CardTitle className='card-title'> {homecard.name}</CardTitle>
+                <CardBody className='card-text'> {homecard.description}</CardBody>
+            </Link>
         </Card>
     );
-
 }
 
-function Home(props) {
-    return(
-        <div className="container">
-            <div className="row align-items-start">
-                <div className="col-12 col-md m-1">
-                    <RenderCard item={props.homecards} />
-                </div>
-                <div className="col-12 col-md m-1">
-                    <RenderCard item={props.homecards} />
-                </div>
+const Home = props => {
+    const homecards = props.homecards.map(card => {
+        return (
+            <div className='col-12 col-md-6'>
+                <RenderCard homecard={card} />
             </div>
-            <div className="row align-items-start">
-                <div className="col-12 col-md m-1">
-                    <RenderCard item={props.homecards} />
-                </div>
-                <div className="col-12 col-md m-1">
-                    <RenderCard item={props.homecards} />
-                </div>
-            </div>
+        );
+    });
+    return (
+        <div className=' container'>
+            <div className='row'>{homecards}</div>
         </div>
     );
-}
+};
 
 export default Home;
